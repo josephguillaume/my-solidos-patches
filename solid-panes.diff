@@ -1,0 +1,132 @@
+diff --git a/dev/loader.ts b/dev/loader.ts
+index 953add2..0836090 100644
+--- a/dev/loader.ts
++++ b/dev/loader.ts
+@@ -46,11 +46,6 @@ function createIconElement (Pane) {
+   return img
+ }
+ 
+-document.addEventListener('DOMContentLoaded', () => {
+-  renderPane(
+-    'https://solidos.solidcommunity.net/Team/SolidOs%20team%20chat/index.ttl#this'
+-  )
+-})
+ 
+ window.onload = async () => {
+   console.log('document ready')
+@@ -71,7 +66,9 @@ window.onload = async () => {
+       'loginBanner'
+     ).innerHTML = `Logged in as ${session.info.webId} <button onclick="logout()">Log out</button>`
+   }
+-  renderPane()
++  //renderPane('https://solidos.solidcommunity.net/profile/card#me')
++  UI.log.setLevel("All")
++  renderPane("https://josephguillaume.solidcommunity.net/public/form.ttl#Object")
+ }
+ window.logout = () => {
+   UI.authn.authSession.logout()
+diff --git a/dev/pane/index.ts b/dev/pane/index.ts
+index 6cf52cb..f19336f 100644
+--- a/dev/pane/index.ts
++++ b/dev/pane/index.ts
+@@ -1,7 +1,8 @@
+ // import { longChatPane as Pane } from 'chat-pane'
+ // import Pane from '../../src/profile/profile.view'
+-import Pane from 'profile-pane'
++//import Pane from 'profile-pane'
+ import * as UI from 'solid-ui'
++import Pane from '../../src/form/pane'
+ 
+ console.log('Loaded pane into Solid Pane Tester. Check window.Pane and window.UI')
+ ;(window as any).Pane = Pane
+diff --git a/src/outline/manager.js b/src/outline/manager.js
+index 214cabf..6cf7f0d 100644
+--- a/src/outline/manager.js
++++ b/src/outline/manager.js
+@@ -187,11 +187,11 @@ export default function (context) {
+     let theClass = 'obj'
+ 
+     // check the IPR on the data.  Ok if there is any checked license which is one the document has.
+-    if (statement && statement.why) {
+-      if (UI.licenceOptions && UI.licenceOptions.checkLicence()) {
+-        theClass += ' licOkay' // flag as light green etc .licOkay {background-color: #dfd}
+-      }
+-    }
++    // if (statement && statement.why) {
++    //   if (UI.licenceOptions && UI.licenceOptions.checkLicence()) {
++    //     theClass += ' licOkay' // flag as light green etc .licOkay {background-color: #dfd}
++    //   }
++    // }
+ 
+     // set about and put 'expand' icon
+     if (
+@@ -666,7 +666,8 @@ export default function (context) {
+                 const renderPane = function (pane) {
+                   let paneDiv
+                   UI.log.info('outline: Rendering pane (2): ' + pane.name)
+-                  if (UI.no_catch_pane_errors) {
++                  if (false){
++                  //if (UI.no_catch_pane_errors) {
+                     // for debugging
+                     paneDiv = pane.render(subject, context, options)
+                   } else {
+diff --git a/src/registerPanes.js b/src/registerPanes.js
+index ea2da02..72ec027 100644
+--- a/src/registerPanes.js
++++ b/src/registerPanes.js
+@@ -11,29 +11,31 @@ module.exports = function registerPanes (register) {
+   register(require('./dashboard/dashboardPane'))
+   register(require('./dashboard/basicPreferences')) // 20190702
+   register(require('issue-pane'))
+-  register(require('contacts-pane'))
+-  register(require('activitystreams-pane'))
++  //register(require('contacts-pane'))
++  //register(require('activitystreams-pane'))
+ 
+-  register(require('./pad/padPane'))
++  //register(require('./pad/padPane'))
+   // register(require('./argument/argumentPane.js')) // A position in an argument tree
+ 
+   register(require('./transaction/pane.js'))
+   register(require('./transaction/period.js'))
+ 
+-  const chatPanes = require('chat-pane')
++  //const chatPanes = require('chat-pane')
+   // FIXME: https://github.com/solid/chat-pane/issues/40
++	/*
+   if (chatPanes.longChatPane) {
+     register(chatPanes.longChatPane) // Long pane must have prio in case short pane tries to do a long pane
+     register(chatPanes.shortChatPane) // was './chat/chatPane.js'
+   } else {
+     register(chatPanes)
+   }
++  */
+   // register(require('./publication/publicationPane.js'))
+-  register(require('meeting-pane'))
++  //register(require('meeting-pane'))
+   register(require('./tabbed/tabbedPane'))
+   register(require('./schedule/schedulePane.js'))
+ 
+-  register(require('./trip/tripPane.js'))
++  //register(require('./trip/tripPane.js'))
+   // register(require('./airPane.js'))
+ 
+   // Content views
+@@ -50,7 +52,7 @@ module.exports = function registerPanes (register) {
+   // register(require('./dynamic/dynamicPanes.js')) // warp etc  warp broken 2017/8
+   register(require('./slideshow/slideshowPane.js'))
+ 
+-  register(require('./socialPane.js'))
++  //register(require('./socialPane.js'))
+ 
+   register(require('./humanReadablePane.js')) // A web page as a web page -- how to escape to tabr?
+   register(require('markdown-pane').Pane)
+@@ -58,7 +60,7 @@ module.exports = function registerPanes (register) {
+   register(require('./dataContentPane.js')) // Preferred for a data file
+   register(require('source-pane')) // edit source
+   register(require('./n3Pane.js'))
+-  register(require('./RDFXMLPane.js'))
++  //register(require('./RDFXMLPane.js'))
+ 
+   // User configured - data driven
+   register(require('./form/pane.js'))

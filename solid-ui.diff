@@ -1,0 +1,23 @@
+diff --git a/src/messageArea.js b/src/messageArea.js
+index 307602c6..518f1b39 100644
+--- a/src/messageArea.js
++++ b/src/messageArea.js
+@@ -282,6 +282,7 @@ export function messageArea (dom, kb, subject, messageStore, options) {
+     }
+ 
+     const td1 = dom.createElement('td')
++    td1.setAttribute('style','overflow-wrap:normal');
+     tr.appendChild(td1)
+     creatorAndDate(td1, creator, UI.widgets.shortDate(dateString), message)
+ 
+@@ -342,7 +343,9 @@ export function messageArea (dom, kb, subject, messageStore, options) {
+   messageTable = dom.createElement('table')
+   messageTable.fresh = false
+   div.appendChild(messageTable)
+-  messageTable.setAttribute('style', 'width: 100%;') // fill that div!
++  messageTable.setAttribute('style', 'width: 100%;overflow-wrap: anywhere;'); 
++
++
+ 
+   const tr = newMessageForm()
+   if (newestFirst) {
