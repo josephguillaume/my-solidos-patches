@@ -39,6 +39,28 @@ index 6cf52cb..f19336f 100644
  
  console.log('Loaded pane into Solid Pane Tester. Check window.Pane and window.UI')
  ;(window as any).Pane = Pane
+diff --git a/src/form/pane.js b/src/form/pane.js
+index 1e12dbb..a6934ac 100644
+--- a/src/form/pane.js
++++ b/src/form/pane.js
+@@ -120,7 +120,8 @@ module.exports = {
+           ele.setAttribute('style', 'font-size: 80%; color:#222;');
+           ele.value = store.uri
+           */
+-
++kb.fetcher.nowOrWhenFetched(form,subject,(ok,body)=>{
++	if (!ok) return complain('Cannot load form' + form + ': ' + body)
+           UI.widgets.appendForm(
+             dom,
+             box,
+@@ -130,6 +131,7 @@ module.exports = {
+             store,
+             complainIfBad
+           )
++})
+         }
+       }) // end: when store loded
+     } // renderFormsFor
 diff --git a/src/outline/manager.js b/src/outline/manager.js
 index 214cabf..6cf7f0d 100644
 --- a/src/outline/manager.js
