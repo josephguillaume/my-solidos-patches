@@ -130,3 +130,20 @@ index ea2da02..72ec027 100644
  
    // User configured - data driven
    register(require('./form/pane.js'))
+diff --git a/src/tableViewPane.js b/src/tableViewPane.js
+index 33638c4..c1dba51 100644
+--- a/src/tableViewPane.js
++++ b/src/tableViewPane.js
+@@ -34,10 +34,10 @@ module.exports = {
+       // None, suppress pane
+       return null
+     }
+-    if (n > 15) {
++    /* if (n > 15) {
+       // @@ At the moment this pane can be slow with too many @@ fixme by using limits
+       return null
+-    }
++    }*/
+     return UI.utils.label(subject) + ' table'
+   },
+ 
