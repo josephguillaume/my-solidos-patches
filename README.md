@@ -7,4 +7,7 @@ Patches to solidos not ready to be merged
   - not registering some panes
   - suppressing limit on number of instances for table view
   - fetch form if not loaded https://github.com/solid/solid-panes/issues/322
-- solid-ui: messageTable formatting tweaks
+- solid-ui: 
+  - messageTable formatting tweaks
+  - ui:Multiple uses ui:category to specify rdf:type https://github.com/solid/solid-ui/issues/460
+
