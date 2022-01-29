@@ -22,7 +22,7 @@ index 307602c6..518f1b39 100644
    const tr = newMessageForm()
    if (newestFirst) {
 diff --git a/src/widgets/forms.js b/src/widgets/forms.js
-index 80f1a27b..ade6dcf4 100644
+index 80f1a27b..ec554695 100644
 --- a/src/widgets/forms.js
 +++ b/src/widgets/forms.js
 @@ -270,7 +270,8 @@ field[ns.ui('Multiple').uri] = function (
@@ -43,3 +43,13 @@ index 80f1a27b..ade6dcf4 100644
    const reverse = kb.anyJS(form, ui('reverse'), null, formDoc)
    if (!property) {
      box.appendChild(
+@@ -1010,7 +1012,8 @@ export function formsFor (subject) {
+       findClosest(kb, b, ns.ui('annotationForm'))
+     )
+   }
+-  return candidates
++  let candidate_values = candidates.map(x => x.value)
++  return candidates.filter((val,ind) => candidate_values.indexOf(val.value) === ind)
+ }
+ 
+ export function sortBySequence (list) {
