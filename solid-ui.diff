@@ -22,7 +22,7 @@ index 307602c6..518f1b39 100644
    const tr = newMessageForm()
    if (newestFirst) {
 diff --git a/src/widgets/forms.js b/src/widgets/forms.js
-index 80f1a27b..553cd496 100644
+index 80f1a27b..ade6dcf4 100644
 --- a/src/widgets/forms.js
 +++ b/src/widgets/forms.js
 @@ -270,7 +270,8 @@ field[ns.ui('Multiple').uri] = function (
@@ -31,7 +31,7 @@ index 80f1a27b..553cd496 100644
        // eslint-disable-next-line multiline-ternary
 -      const toBeInserted = reverse ? [$rdf.st(object, property, subject, dataDoc)] : [$rdf.st(subject, property, object, dataDoc)]
 +      let toBeInserted = reverse ? [$rdf.st(object, property, subject, dataDoc)] : [$rdf.st(subject, property, object, dataDoc)]
-+      toBeInserted.push($rdf.st(object,ns.rdf("type"),category,dataDoc))
++      if(category) toBeInserted.push($rdf.st(object,ns.rdf("type"),category,dataDoc))
        try {
          await kb.updater.update([], toBeInserted)
        } catch (err) {
@@ -43,16 +43,3 @@ index 80f1a27b..553cd496 100644
    const reverse = kb.anyJS(form, ui('reverse'), null, formDoc)
    if (!property) {
      box.appendChild(
-@@ -431,6 +433,12 @@ field[ns.ui('Multiple').uri] = function (
-     ) // used for arcs in the data
-     return shim
-   }
-+  if (!category) {
-+    box.appendChild(
-+      errorMessageBlock(dom, 'No category to multiple: ' + form)
-+    ) // used for arcs in the data
-+    return shim
-+   }
-   let min = kb.any(form, ui('min')) // This is the minimum number -- default 0
-   min = min ? 0 + min.value : 0
- 
